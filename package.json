@@ -1,0 +1,36 @@
+{
+  "name": "stockbot",
+  "version": "0.2.0",
+  "description": "groupme bot",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "director": "",
+    "https": "",
+    "mebots": "^1.1.0",
+    "request": "",
+    "utf8": "^3.0.0"
+  },
+  "engines": {
+    "node": "x.10.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jso0003auburn/stockbot"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "groupme",
+    "gif",
+    "bot",
+    "node.js",
+    "giphy",
+    "api",
+    "yahoo",
+    "stocks"
+  ],
+  "license": "MIT"
+}

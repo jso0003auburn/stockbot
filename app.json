@@ -1,0 +1,5 @@
+{
+  "name": "groupme-stock-bot",
+  "description": "GroupMe stockbot",
+  "keywords": [GroupMe, Bot, Node, heroku, stockbot]
+}
