@@ -48,7 +48,7 @@ function tagCheck(message) {
 
 // If the bot was tagged
 function botTag(message) {
-    botResponse = 'try one of these:\n#auburn basketball\n#lol\n#godzilla\nhttps://mebotsco.herokuapp.com/bot/gifbot';
+    botResponse = 'try one of these:\n$MSFT\n$bac\nhttps://mebotsco.herokuapp.com/bot/stockbot';
     postMessage(botResponse, message.group_id);
 }
 
