@@ -60,6 +60,8 @@ function stockTag(message) {
   if (!error && quoteObj && Number(quoteObj['Global Quote']['05. price']) == Number(quoteObj['Global Quote']['05. price'])) {
     open = Number(quoteObj['Global Quote']['02. open']);
     price = Number(quoteObj['Global Quote']['05. price']);
+    price = parseFloat(price).toFixed(2);
+    price = price.toString();
     lastRefreshed = quoteObj['Global Quote']['07. latest trading day'];
     change = quoteObj['Global Quote']['10. change percent'].slice(0,-3);
     change = Number(change);
