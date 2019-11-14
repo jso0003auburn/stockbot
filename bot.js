@@ -72,7 +72,7 @@ function stockTag(message) {
     change = '📈 +' + change;
     }
 
-    botResponse = ('💵 $' + price + '\n' + change + percent + ' today\n' + 'https://finance.yahoo.com/quote/' + trim(message.text));
+    botResponse = ('💵 $' + price + '\n' + change + percent + '\n' + 'https://finance.yahoo.com/quote/' + trim(message.text));
     postMessage(botResponse, message.group_id);
   } else {
   console.log(message.text + ' is invalid');
