@@ -64,6 +64,7 @@ function stockTag(message) {
     price = price.toString();
     lastRefreshed = quoteObj['Global Quote']['07. latest trading day'];
     change = quoteObj['Global Quote']['10. change percent'].slice(0,-3);
+    percent = quoteObj['Global Quote']['10. change percent'].substr(-1);
     change = Number(change);
     if (quoteObj['Global Quote']['10. change percent'].substring(0,1) == '-') {
       change = '📉 ' + change;
@@ -71,7 +72,7 @@ function stockTag(message) {
     change = '📈 +' + change;
     }
 
-    botResponse = ('💵 $' + price + '\n' + change + 'pct\n' + 'https://finance.yahoo.com/quote/' + trim(message.text));
+    botResponse = ('💵 $' + price + '\n' + change + percent + 'pct\n' + 'https://finance.yahoo.com/quote/' + trim(message.text));
     postMessage(botResponse, message.group_id);
   } else {
   console.log(message.text + ' is invalid');
