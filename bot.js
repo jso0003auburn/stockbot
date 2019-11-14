@@ -64,7 +64,7 @@ function stockTag(message) {
     price = price.toString();
     lastRefreshed = quoteObj['Global Quote']['07. latest trading day'];
     change = quoteObj['Global Quote']['10. change percent'].slice(0,-3);
-    percent = quoteObj['Global Quote']['10. change percent'].substr(-1);
+    percent = '\uFF05';
     change = Number(change);
     if (quoteObj['Global Quote']['10. change percent'].substring(0,1) == '-') {
       change = '📉 ' + change;
