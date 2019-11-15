@@ -67,10 +67,10 @@ function stockTag(message) {
     percent = '\uFF05';
     change = Number(change);
     if (quoteObj['Global Quote']['10. change percent'].substring(0,1) == '-') {
-      change = '🔽 ' + change + percent + ' 📉';
+      change = '🔽 ' + change + percent;
       chart = '📉';
     } else {
-    change = '🔼 ' + change + percent + ' 📈';
+    change = '🔼 ' + change + percent;
     chart = '📈';
     }
 
