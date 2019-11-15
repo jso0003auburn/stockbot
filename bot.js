@@ -67,9 +67,9 @@ function stockTag(message) {
     percent = '\uFF05';
     change = Number(change);
     if (quoteObj['Global Quote']['10. change percent'].substring(0,1) == '-') {
-      change = '📉 ' + change;
+      change = '🔽 ' + change + ' 📉';
     } else {
-    change = '📈 +' + change;
+    change = '🔼 ' + change + ' 📈';
     }
 
     botResponse = ('💵 $' + price + '\n' + change + percent + '\n' + 'https://finance.yahoo.com/quote/' + trim(message.text));
