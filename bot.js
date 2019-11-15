@@ -67,12 +67,12 @@ function stockTag(message) {
     percent = '\uFF05';
     change = Number(change);
     if (quoteObj['Global Quote']['10. change percent'].substring(0,1) == '-') {
-      change = '🔽 ' + change + ' 📉';
+      change = '🔽 ' + change + percent + ' 📉';
     } else {
-    change = '🔼 ' + change + ' 📈';
+    change = '🔼 ' + change + percent + ' 📈';
     }
 
-    botResponse = ('💵 $' + price + '\n' + change + percent + '\n' + 'https://finance.yahoo.com/quote/' + trim(message.text));
+    botResponse = ('💵 $' + price + '\n' + change + '\n' + 'https://finance.yahoo.com/quote/' + trim(message.text));
     postMessage(botResponse, message.group_id);
   } else {
   console.log(message.text + ' is invalid');
