@@ -48,7 +48,7 @@ function tagCheck(message) {
 
 // If the bot was tagged
 function botTag(message) {
-    botResponse = 'try one of these:\n$MSFT\n$bac\nhttps://mebotsco.herokuapp.com/bot/stockbot';
+    botResponse = 'try one of these:\n$MSFT - Microsoft\n$^GSPC - S&P500\n$^DJI - Dow Jones\n$aapl - 🍏\nhttps://mebotsco.herokuapp.com/bot/stockbot';
     postMessage(botResponse, message.group_id);
 }
 
