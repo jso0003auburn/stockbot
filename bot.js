@@ -58,8 +58,9 @@ function stockTag(message) {
 
   request('https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=' + trim(message.text) + '&apikey=' + alphaVantageAPIKey, function (error, response, body) {
   symbolObj = JSON.parse(body);
-  log = (symbolObj['bestMatches'][1]['1. symbol']);
-  console.log(log);
+  symbol = (symbolObj['bestMatches'][0]['1. symbol']);
+  name = (symbolObj['bestMatches'][0]['2. name']);
+  console.log(name);
   });
  
   request('https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=' + trim(message.text) + '&outputsize=compact&apikey=' + alphaVantageAPIKey, function (error, response, body) {
@@ -81,7 +82,7 @@ function stockTag(message) {
     chart = '📈';
     }
 
-    botResponse = ('💵 $' + price + '\n' + change + '\n' + chart + ' https://finance.yahoo.com/quote/' + trim(message.text));
+    botResponse = (name + '\n' + '💵 $' + price + '\n' + change + '\n' + chart + ' https://finance.yahoo.com/quote/' + trim(message.text));
     postMessage(botResponse, message.group_id);
   } else {
   console.log(message.text + ' is invalid');
