@@ -58,8 +58,8 @@ function stockTag(message) {
 
   request('https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=' + trim(message.text) + '&apikey=' + alphaVantageAPIKey, function (error, response, body) {
   symbolObj = JSON.parse(body);
-  var symbol = (symbolObj['bestMatches'][0]['1. symbol']);
-  var name = (symbolObj['bestMatches'][0]['2. name']);
+  const symbol = (symbolObj['bestMatches'][0]['1. symbol']);
+  const name = (symbolObj['bestMatches'][0]['2. name']);
   console.log(name);
   });
  
