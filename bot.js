@@ -58,7 +58,7 @@ function stockTag(message) {
 
 
   request('https://www.alphavantage.co/query?function=SYMBOL_SEARCH&symbol=' + trim(message.text) + '&outputsize=compact&apikey=' + alphaVantageAPIKey, function (error, response, body) {
-  symoblObj = JSON.parse(body);
+  symbolObj = JSON.parse(body);
   if (!error && symbolObj) {
     ticker = symbolObj['Best Matches'];
     console.log(ticker);
