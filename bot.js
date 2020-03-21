@@ -61,9 +61,9 @@ function stockTag(message) {
   symbolObj = JSON.parse(body);
   if (!error && symbolObj) {
     oneSymbol = '1. symbol';
-    full = symbolObj.bestMatches[0];
+    full = symbolObj.["bestMatches"][1];
     console.log(full);
-    ticker = symbolObj.bestMatches[0].oneSymbol[0];
+    ticker = symbolObj.["bestMatches"][1].["1. symbol"];
     console.log(ticker);
 
   } else {
