@@ -55,6 +55,19 @@ function botTag(message) {
 
 //stock quote
 function stockTag(message) {
+
+
+  request('https://www.alphavantage.co/query?function=SYMBOL_SEARCH&symbol=' + trim(message.text) + '&outputsize=compact&apikey=' + alphaVantageAPIKey, function (error, response, body) {
+  symoblObj = JSON.parse(body);
+  if (!error && symbolObj) {
+    ticker = symbolObj['Best Matches'];
+    console.log(ticker);
+  } else {
+  console.log(message.text + ' ticker is invalid');
+  }
+  });
+  
+  
   request('https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=' + trim(message.text) + '&outputsize=compact&apikey=' + alphaVantageAPIKey, function (error, response, body) {
   quoteObj = JSON.parse(body);
   if (!error && quoteObj && Number(quoteObj['Global Quote']['05. price']) == Number(quoteObj['Global Quote']['05. price'])) {
@@ -80,6 +93,13 @@ function stockTag(message) {
   console.log(message.text + ' is invalid');
   }
   });
+  
+
+  
+  
+  
+  
+  
 }
 
 // Post message
