@@ -58,7 +58,7 @@ function stockTag(message) {
 
   try {
     request('https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=' + trim(message.text) + '&apikey=' + alphaVantageAPIKey, function (error, response, body) {
-    symbolObj = JSON.parse(body);
+    symbolObj[0][0] = JSON.parse(body);
     keysArray = Object.keys(symbolObj);
     if (!error && symbolObj) {
       for (var i = 0; i < keysArray.length; i++) {
@@ -66,7 +66,7 @@ function stockTag(message) {
         var value = symbolObj[key]; // here get value "by name" as it expected with objects
         console.log(key, value);
       }
-      console.log(symbolObj[0].bestMatches[0].["1. symbol"])
+      //console.log(symbolObj[0].bestMatches[0].["1. symbol"])
 
     } else {
     console.log(message.text + ' ticker is invalid');
