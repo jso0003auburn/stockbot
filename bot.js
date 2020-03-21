@@ -57,7 +57,7 @@ function botTag(message) {
 function stockTag(message) {
 
   try {
-    request('https://www.alphavantage.co/query?function=SYMBOL_SEARCH&symbol=' + trim(message.text) + '&outputsize=compact&apikey=' + alphaVantageAPIKey, function (error, response, body) {
+    request('https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=' + trim(message.text) + '&apikey=' + alphaVantageAPIKey, function (error, response, body) {
     symbolObj = JSON.parse(body);
     keysArray = Object.keys(symbolObj);
     if (!error && symbolObj) {
