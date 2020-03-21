@@ -58,8 +58,8 @@ function stockTag(message) {
 
   try {
     request('https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=' + trim(message.text) + '&apikey=' + alphaVantageAPIKey, function (error, response, body) {
-    symbolObj[0][0] = JSON.parse(body);
-    keysArray = Object.keys(symbolObj);
+    symbolObj = JSON.parse(body);
+    keysArray = Object.keys(symbolObj[0][0]);
     if (!error && symbolObj) {
       for (var i = 0; i < keysArray.length; i++) {
         var key = keysArray[i]; // here is "name" of object property
