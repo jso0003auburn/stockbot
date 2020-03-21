@@ -56,20 +56,25 @@ function botTag(message) {
 //stock quote
 function stockTag(message) {
 
+  try {
+    request('https://www.alphavantage.co/query?function=SYMBOL_SEARCH&symbol=' + trim(message.text) + '&outputsize=compact&apikey=' + alphaVantageAPIKey, function (error, response, body) {
+    symbolObj = JSON.parse(body);
+    if (!error && symbolObj) {
+      oneSymbol = '1. symbol';
+      full = symbolObj.["bestMatches"][1];
+      console.log(full);
+      ticker = symbolObj.["bestMatches"][1].["1. symbol"];
+      console.log(ticker);
 
-  request('https://www.alphavantage.co/query?function=SYMBOL_SEARCH&symbol=' + trim(message.text) + '&outputsize=compact&apikey=' + alphaVantageAPIKey, function (error, response, body) {
-  symbolObj = JSON.parse(body);
-  if (!error && symbolObj) {
-    oneSymbol = '1. symbol';
-    full = symbolObj.["bestMatches"][1];
-    console.log(full);
-    ticker = symbolObj.["bestMatches"][1].["1. symbol"];
-    console.log(ticker);
-
-  } else {
-  console.log(message.text + ' ticker is invalid');
+    } else {
+    console.log(message.text + ' ticker is invalid');
+    }
+    }); 
+  
+  } catch (e) {
+    console.log('error in symbol search');
   }
-  });
+
   
   
   request('https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=' + trim(message.text) + '&outputsize=compact&apikey=' + alphaVantageAPIKey, function (error, response, body) {
