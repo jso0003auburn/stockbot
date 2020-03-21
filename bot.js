@@ -65,7 +65,8 @@ function stockTag(message) {
         var key = keysArray[i]; // here is "name" of object property
         var value = symbolObj[key]; // here get value "by name" as it expected with objects
         console.log(key, value);
-    }
+      }
+      console.log(symbolObj[0].bestMatches[0].["1. symbol"])
 
     } else {
     console.log(message.text + ' ticker is invalid');
