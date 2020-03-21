@@ -56,30 +56,12 @@ function botTag(message) {
 //stock quote
 function stockTag(message) {
 
-  try {
-    request('https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=' + trim(message.text) + '&apikey=' + alphaVantageAPIKey, function (error, response, body) {
-    symbolObj = JSON.parse(body);
-    console.log(symbolObj.bestMatches[0].["1. symbol"]);
-    keysArray = Object.keys(symbolObj);
-    if (!error && symbolObj) {
-      for (var i = 0; i < keysArray.length; i++) {
-        var key = keysArray[i]; // here is "name" of object property
-        var value = symbolObj[key]; // here get value "by name" as it expected with objects
-        console.log(key, value);
-      }
-      //console.log(symbolObj[0].bestMatches[0].["1. symbol"])
-
-    } else {
-    console.log(message.text + ' ticker is invalid');
-    }
-    }); 
-  
-  } catch (e) {
-    console.log('error in symbol search');
-  }
-
-  
-  
+  request('https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=' + trim(message.text) + '&apikey=' + alphaVantageAPIKey, function (error, response, body) {
+  symbolObj = JSON.parse(body);
+  log = (symbolObj['bestMatches'][1]['1. symbol']);
+  console.log(log);
+  });
+ 
   request('https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=' + trim(message.text) + '&outputsize=compact&apikey=' + alphaVantageAPIKey, function (error, response, body) {
   quoteObj = JSON.parse(body);
   if (!error && quoteObj && Number(quoteObj['Global Quote']['05. price']) == Number(quoteObj['Global Quote']['05. price'])) {
