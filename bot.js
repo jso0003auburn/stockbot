@@ -150,7 +150,7 @@ function stockPriceCheck(message, symbol, name) {
         change = '🔼 ' + change + percent;
         chart = '📈';
       }
-      botResponse = ('💵 $' + price + '\n' + change + '\n' + chart + ' https://finance.yahoo.com/quote/' + trim(message.text));
+      botResponse = ('💵 $' + price + '\n' + change + '\n' + name + '\n' + chart + ' https://finance.yahoo.com/quote/' + trim(message.text));
       postMessage(botResponse, message.group_id);
       });
   } catch (e) {
