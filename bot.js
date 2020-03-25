@@ -55,11 +55,6 @@ function botTag(message) {
 
 //stock quote
 function stockTag(message) {
-  var symbol = "";
-  var name = "";
-  var price = "";
-  var change = "";
-  var chart = "";
   
   
   try {
