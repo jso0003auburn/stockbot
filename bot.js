@@ -174,9 +174,12 @@ function assembleStockPost(message, symbolObj, quoteObj) {
       console.log("leaving catch block");
       postGoAhead = "no";
   }
-  if (postGoAhead != "no")
-  botResponse = ('💵 $' + price + '\n' + change + '\n' + name + '\n' + chart + ' https://finance.yahoo.com/quote/' + trim(message.text));
-  postMessage(botResponse, message.group_id);
+  if (postGoAhead != "no") {
+    botResponse = ('💵 $' + price + '\n' + change + '\n' + name + '\n' + chart + ' https://finance.yahoo.com/quote/' + trim(message.text));
+    postMessage(botResponse, message.group_id);
+  } else {
+    console.log(postGoAhead);
+  }
 
 
 }
