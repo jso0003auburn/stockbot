@@ -84,16 +84,16 @@ function stockTag(message) {
         chart = '📈';
       }
 
+      });
+      
       botResponse = ('💵 $' + price + '\n' + change + '\n' + chart + ' https://finance.yahoo.com/quote/' + trim(message.text));
       postMessage(botResponse, message.group_id);
-      });
-  }
-  
-  catch (e) {
-    console.log("entering catch block");
-    console.log(e);
-    console.log(message.text + ' is invalid');
-    console.log("leaving catch block");
+      
+  } catch (e) {
+      console.log("entering catch block");
+      console.log(e);
+      console.log(message.text + ' is invalid');
+      console.log("leaving catch block");
   }
   
   
