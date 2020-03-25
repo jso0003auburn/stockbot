@@ -149,8 +149,10 @@ function assembleStockPost(message, symbolObj, quoteObj) {
       name = (symbolObj['bestMatches'][0]['2. name']);
       console.log(symbol);
       console.log(name);
-      
-
+      if (typeof (Number(quoteObj['Global Quote']['02. open'])) === "undefined") {
+        botResponse = (symbol + ' not found, did you mean: ' + name);
+        postMessage(botResponse, message.group_id);      
+      }
 
       open = Number(quoteObj['Global Quote']['02. open']);
       price = Number(quoteObj['Global Quote']['05. price']);
