@@ -66,34 +66,33 @@ function stockTag(message) {
  
       request('https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=' + trim(message.text) + '&outputsize=compact&apikey=' + alphaVantageAPIKey, function (error, response, body) {
       quoteObj = JSON.parse(body);
-      if (!error && quoteObj && Number(quoteObj['Global Quote']['05. price']) == Number(quoteObj['Global Quote']['05. price'])) {
-        open = Number(quoteObj['Global Quote']['02. open']);
-        price = Number(quoteObj['Global Quote']['05. price']);
-        price = parseFloat(price).toFixed(2);
-        price = price.toString();
-        lastRefreshed = quoteObj['Global Quote']['07. latest trading day'];
-        change = quoteObj['Global Quote']['10. change percent'].slice(0,-3);
-        percent = '\uFF05';
-        change = Number(change);
-        if (quoteObj['Global Quote']['10. change percent'].substring(0,1) == '-') {
-          change = '🔽 ' + change + percent;
-          chart = '📉';
-        } else {
+      
+      
+      open = Number(quoteObj['Global Quote']['02. open']);
+      price = Number(quoteObj['Global Quote']['05. price']);
+      price = parseFloat(price).toFixed(2);
+      price = price.toString();
+      lastRefreshed = quoteObj['Global Quote']['07. latest trading day'];
+      change = quoteObj['Global Quote']['10. change percent'].slice(0,-3);
+      percent = '\uFF05';
+      change = Number(change);
+      if (quoteObj['Global Quote']['10. change percent'].substring(0,1) == '-') {
+        change = '🔽 ' + change + percent;
+        chart = '📉';
+      } else {
         change = '🔼 ' + change + percent;
         chart = '📈';
-        }
-
-        botResponse = ('💵 $' + price + '\n' + change + '\n' + chart + ' https://finance.yahoo.com/quote/' + trim(message.text));
-        postMessage(botResponse, message.group_id);
-      } else {
-      console.log(message.text + ' is invalid');
       }
+
+      botResponse = ('💵 $' + price + '\n' + change + '\n' + chart + ' https://finance.yahoo.com/quote/' + trim(message.text));
+      postMessage(botResponse, message.group_id);
       });
   }
   
   catch (e) {
     console.log("entering catch block");
     console.log(e);
+    console.log(message.text + ' is invalid');
     console.log("leaving catch block");
   }
   
