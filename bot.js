@@ -141,19 +141,22 @@ function stockPriceCheck(message, symbolObj) {
 
 
 function assembleStockPost(message, symbolObj, quoteObj) {
-      
+  postGoAhead = "yes";
+    
       
   try {
   
       symbol = (symbolObj['bestMatches'][0]['1. symbol']);
       name = (symbolObj['bestMatches'][0]['2. name']);
+      symbolTwo = (symbolObj['bestMatches'][1]['1. symbol']);
+      nameTwo = (symbolObj['bestMatches'][1]['2. name']);
       console.log(symbol);
       console.log(name);
-      postGoAhead = "yes";
+      console.log(symbolTwo);
+      console.log(nameTwo);
   } catch (e) {
-      console.log("caught error");
+      postGoAhead = "no symbolObj";
       //console.log(e);
-      postGoAhead = "no";
   }
   
   
@@ -173,23 +176,25 @@ function assembleStockPost(message, symbolObj, quoteObj) {
         change = '🔼 ' + change + percent;
         chart = '📈';
       }
-      postGoAhead = "yes";
   } catch (e) {
-      console.log("caught error");
+      postGoAhead = "no quoteObj";
       //console.log(e);
-      postGoAhead = "no";
   }
   
   
-  if (postGoAhead != "no") {
+  if (postGoAhead == "yes") {
+    console.log("SUCCESS: " + postGoAhead);
     botResponse = ('💵 $' + price + '\n' + change + '\n' + name + '\n' + chart + ' https://finance.yahoo.com/quote/' + trim(message.text));
     postMessage(botResponse, message.group_id);
   } else {
-    console.log(postGoAhead);
+    console.log("ERROR: " + postGoAhead);
   }
 
 
 }
+
+
+
 // Post message
 function postMessage(text, groupID) {
     bot.getInstance(groupID).then((instance) => {
