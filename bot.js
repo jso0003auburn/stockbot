@@ -143,11 +143,14 @@ function stockPriceCheck(message, symbolObj) {
 function assembleStockPost(message, symbolObj, quoteObj) {
       
       
-      
+  try {
+  
       symbol = (symbolObj['bestMatches'][0]['1. symbol']);
       name = (symbolObj['bestMatches'][0]['2. name']);
       console.log(symbol);
       console.log(name);
+      
+
 
       open = Number(quoteObj['Global Quote']['02. open']);
       price = Number(quoteObj['Global Quote']['05. price']);
@@ -164,8 +167,16 @@ function assembleStockPost(message, symbolObj, quoteObj) {
         change = '🔼 ' + change + percent;
         chart = '📈';
       }
-      botResponse = ('💵 $' + price + '\n' + change + '\n' + name + '\n' + chart + ' https://finance.yahoo.com/quote/' + trim(message.text));
-      postMessage(botResponse, message.group_id);
+      postGoAhead = "yes";
+  } catch (e) {
+      console.log("entering catch block");
+      console.log(e);
+      console.log("leaving catch block");
+      postGoAhead = "no";
+  }
+  if (postGoAhead != "no")
+  botResponse = ('💵 $' + price + '\n' + change + '\n' + name + '\n' + chart + ' https://finance.yahoo.com/quote/' + trim(message.text));
+  postMessage(botResponse, message.group_id);
 
 
 }
