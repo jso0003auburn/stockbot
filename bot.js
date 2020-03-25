@@ -41,7 +41,7 @@ function tagCheck(message) {
 
     // GIF #
     if (message.text.substring(0,1) == '$') {
-        stockTag(message);
+        stockNameCheck(message);
     }
 }
 
@@ -55,7 +55,7 @@ function botTag(message) {
 
 //stock quote
 function stockTag(message) {
-  stockNameCheck(message);
+//   stockNameCheck(message);
   
 //   try {
 //       request('https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=' + trim(message.text) + '&apikey=' + alphaVantageAPIKey, function (error, response, body) {
@@ -149,11 +149,15 @@ function assembleStockPost(message, symbolObj, quoteObj) {
       name = (symbolObj['bestMatches'][0]['2. name']);
       console.log(symbol);
       console.log(name);
-      if (typeof (Number(quoteObj['Global Quote']['02. open'])) === "undefined") {
-        botResponse = (symbol + ' not found, did you mean: ' + name);
-        postMessage(botResponse, message.group_id);      
-      }
-
+      postGoAhead = "yes";
+  } catch (e) {
+      console.log("caught error");
+      //console.log(e);
+      postGoAhead = "no";
+  }
+  
+  
+  try {
       open = Number(quoteObj['Global Quote']['02. open']);
       price = Number(quoteObj['Global Quote']['05. price']);
       price = parseFloat(price).toFixed(2);
@@ -171,11 +175,12 @@ function assembleStockPost(message, symbolObj, quoteObj) {
       }
       postGoAhead = "yes";
   } catch (e) {
-      console.log("entering catch block");
-      console.log(e);
-      console.log("leaving catch block");
+      console.log("caught error");
+      //console.log(e);
       postGoAhead = "no";
   }
+  
+  
   if (postGoAhead != "no") {
     botResponse = ('💵 $' + price + '\n' + change + '\n' + name + '\n' + chart + ' https://finance.yahoo.com/quote/' + trim(message.text));
     postMessage(botResponse, message.group_id);
