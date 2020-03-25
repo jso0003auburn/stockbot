@@ -70,7 +70,13 @@ function stockTag(message) {
       console.log(symbol);
       console.log(name);
       });
- 
+  } catch (e) {
+      console.log("entering catch block");
+      console.log(e);
+      console.log("leaving catch block"); 
+  }
+  
+  try {
       request('https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=' + trim(message.text) + '&outputsize=compact&apikey=' + alphaVantageAPIKey, function (error, response, body) {
       quoteObj = JSON.parse(body);
       
@@ -92,16 +98,17 @@ function stockTag(message) {
       }
 
       });
-      
-      botResponse = ('💵 $' + price + '\n' + change + '\n' + chart + ' https://finance.yahoo.com/quote/' + trim(message.text));
-      postMessage(botResponse, message.group_id);
-      
   } catch (e) {
-      console.log("entering catch block");
-      console.log(e);
-      console.log(message.text + ' is invalid');
-      console.log("leaving catch block");
+    console.log("entering catch block");
+    console.log(e);
+    console.log(message.text + ' is invalid');
+    console.log("leaving catch block");
   }
+      
+  botResponse = ('💵 $' + price + '\n' + change + '\n' + chart + ' https://finance.yahoo.com/quote/' + trim(message.text));
+  postMessage(botResponse, message.group_id);
+      
+
   
   
   
