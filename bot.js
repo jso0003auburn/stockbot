@@ -116,11 +116,7 @@ function stockNameCheck(message) {
   try {
       request('https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=' + trim(message.text) + '&apikey=' + alphaVantageAPIKey, function (error, response, body) {
       symbolObj = JSON.parse(body);
-      symbol = (symbolObj['bestMatches'][0]['1. symbol']);
-      name = (symbolObj['bestMatches'][0]['2. name']);
-      console.log(symbol);
-      console.log(name);
-      stockPriceCheck(message, symbol, name);
+      stockPriceCheck(message, symbolObj);
       });
   } catch (e) {
       console.log("entering catch block");
@@ -129,12 +125,30 @@ function stockNameCheck(message) {
   }
 }
 
-function stockPriceCheck(message, symbol, name) {
+function stockPriceCheck(message, symbolObj) {
   try {
       request('https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=' + trim(message.text) + '&outputsize=compact&apikey=' + alphaVantageAPIKey, function (error, response, body) {
       quoteObj = JSON.parse(body);
+      assembleStockPost(message, symbolObj, quoteObj);
+
+      });
+  } catch (e) {
+      console.log("entering catch block");
+      console.log(e);
+      console.log("leaving catch block"); 
+  }
+}
+
+
+function assembleStockPost(message, symbolObj, quoteObj) {
       
       
+      
+      symbol = (symbolObj['bestMatches'][0]['1. symbol']);
+      name = (symbolObj['bestMatches'][0]['2. name']);
+      console.log(symbol);
+      console.log(name);
+
       open = Number(quoteObj['Global Quote']['02. open']);
       price = Number(quoteObj['Global Quote']['05. price']);
       price = parseFloat(price).toFixed(2);
@@ -152,14 +166,9 @@ function stockPriceCheck(message, symbol, name) {
       }
       botResponse = ('💵 $' + price + '\n' + change + '\n' + name + '\n' + chart + ' https://finance.yahoo.com/quote/' + trim(message.text));
       postMessage(botResponse, message.group_id);
-      });
-  } catch (e) {
-      console.log("entering catch block");
-      console.log(e);
-      console.log("leaving catch block"); 
-  }
-}
 
+
+}
 // Post message
 function postMessage(text, groupID) {
     bot.getInstance(groupID).then((instance) => {
