@@ -55,11 +55,18 @@ function botTag(message) {
 
 //stock quote
 function stockTag(message) {
+  var symbol = "";
+  var name = "";
+  var price = "";
+  var change = "";
+  var chart = "";
+  
+  
   try {
       request('https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=' + trim(message.text) + '&apikey=' + alphaVantageAPIKey, function (error, response, body) {
       symbolObj = JSON.parse(body);
-      const symbol = (symbolObj['bestMatches'][0]['1. symbol']);
-      const name = (symbolObj['bestMatches'][0]['2. name']);
+      symbol = (symbolObj['bestMatches'][0]['1. symbol']);
+      name = (symbolObj['bestMatches'][0]['2. name']);
       console.log(symbol);
       console.log(name);
       });
