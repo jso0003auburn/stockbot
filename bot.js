@@ -53,64 +53,6 @@ function botTag(message) {
 }
 
 
-//stock quote
-function stockTag(message) {
-//   stockNameCheck(message);
-  
-//   try {
-//       request('https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=' + trim(message.text) + '&apikey=' + alphaVantageAPIKey, function (error, response, body) {
-//       symbolObj = JSON.parse(body);
-//       symbol = (symbolObj['bestMatches'][0]['1. symbol']);
-//       name = (symbolObj['bestMatches'][0]['2. name']);
-//       console.log(symbol);
-//       console.log(name);
-//       });
-//   } catch (e) {
-//       console.log("entering catch block");
-//       console.log(e);
-//       console.log("leaving catch block"); 
-//   }
-//   
-//   try {
-//       request('https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=' + trim(message.text) + '&outputsize=compact&apikey=' + alphaVantageAPIKey, function (error, response, body) {
-//       quoteObj = JSON.parse(body);
-//       
-//       
-//       open = Number(quoteObj['Global Quote']['02. open']);
-//       price = Number(quoteObj['Global Quote']['05. price']);
-//       price = parseFloat(price).toFixed(2);
-//       price = price.toString();
-//       lastRefreshed = quoteObj['Global Quote']['07. latest trading day'];
-//       change = quoteObj['Global Quote']['10. change percent'].slice(0,-3);
-//       percent = '\uFF05';
-//       change = Number(change);
-//       if (quoteObj['Global Quote']['10. change percent'].substring(0,1) == '-') {
-//         change = '🔽 ' + change + percent;
-//         chart = '📉';
-//       } else {
-//         change = '🔼 ' + change + percent;
-//         chart = '📈';
-//       }
-// 
-//       });
-//   } catch (e) {
-//     console.log("entering catch block");
-//     console.log(e);
-//     console.log(message.text + ' is invalid');
-//     console.log("leaving catch block");
-//   }
-//       
-//   botResponse = ('💵 $' + price + '\n' + change + '\n' + chart + ' https://finance.yahoo.com/quote/' + trim(message.text));
-//   postMessage(botResponse, message.group_id);
-      
-
-  
-  
-  
-  
-  
-}
-
 
 function stockNameCheck(message) {
   try {
@@ -145,7 +87,6 @@ function assembleStockPost(message, symbolObj, quoteObj) {
     
       
   try {
-  
       symbol = (symbolObj['bestMatches'][0]['1. symbol']);
       name = (symbolObj['bestMatches'][0]['2. name']);
       symbolTwo = (symbolObj['bestMatches'][1]['1. symbol']);
@@ -184,7 +125,7 @@ function assembleStockPost(message, symbolObj, quoteObj) {
   
   if (postGoAhead == "yes") {
     console.log("SUCCESS: " + postGoAhead);
-    botResponse = ('💵 $' + price + '\n' + change + '\n' + name + '\n' + chart + ' https://finance.yahoo.com/quote/' + trim(message.text));
+    botResponse = ('💵 $' + price + '\n' + change + '\n' + chart + ' https://finance.yahoo.com/quote/' + trim(message.text) name + '\n' +);
     postMessage(botResponse, message.group_id);
   } else {
     console.log("ERROR: " + postGoAhead);
