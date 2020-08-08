@@ -103,13 +103,28 @@ function assembleStockPost(message, symbolObj, quoteObj) {
   
   try {
       open = Number(quoteObj['Global Quote']['02. open']);
+      console.log('open:');
+      console.log(open);
+
       price = Number(quoteObj['Global Quote']['05. price']);
       price = parseFloat(price).toFixed(2);
       price = price.toString();
+      console.log('price:');
+      console.log(price);
+      
+      
       lastRefreshed = quoteObj['Global Quote']['07. latest trading day'];
+      console.log('lastRefreshed:');
+      console.log(lastRefreshed);
+      
+      
       change = quoteObj['Global Quote']['10. change percent'].slice(0,-3);
       percent = '\uFF05';
       change = Number(change);
+      console.log('change:');
+      console.log(change);
+      
+      
       if (quoteObj['Global Quote']['10. change percent'].substring(0,1) == '-') {
         change = '🔽 ' + change + percent;
         chart = '📉';
