@@ -115,7 +115,8 @@ function assembleStockPost(message, symbolObj, quoteObj) {
       
 
       previousClose = quoteObj['pc']
-      change = (Number(price) / Number(previousClose))-1
+      change = ((Number(price) / Number(previousClose))-1)*100
+      change = change.toFixed(2)
       
       //change = quoteObj['Global Quote']['10. change percent'].slice(0,-3);
       percent = '\uFF05';
@@ -124,7 +125,7 @@ function assembleStockPost(message, symbolObj, quoteObj) {
       console.log(change);
       
       
-      if (quoteObj['Global Quote']['10. change percent'].substring(0,1) == '-') {
+      if (change < 0) {
         change = '🔽 ' + change + percent;
         chart = '📉';
       } else {
@@ -133,7 +134,7 @@ function assembleStockPost(message, symbolObj, quoteObj) {
       }
   } catch (e) {
       postGoAhead = "no quoteObj";
-      //console.log(e);
+      console.log(e);
   }
   
   
