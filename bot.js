@@ -115,8 +115,8 @@ function assembleStockPost(message, symbolObj, quoteObj) {
       
 
       previousClose = quoteObj['pc']
-      change = ((Number(price) / Number(previousClose))-1)*100
-      change = change.toFixed(2)
+      change = (((Number(price) / Number(previousClose))-1)*100)
+      //change = change.toFixed(2)
       
       //change = quoteObj['Global Quote']['10. change percent'].slice(0,-3);
       percent = '\uFF05';
@@ -125,7 +125,7 @@ function assembleStockPost(message, symbolObj, quoteObj) {
       console.log(change);
       
       
-      if (change < 0) {
+      if (price < Number(previousClose)) {
         change = '🔽 ' + change + percent;
         chart = '📉';
       } else {
