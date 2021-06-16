@@ -62,6 +62,7 @@ function stockNameCheck(message) {
       console.log(symbolSearch);
       request('https://finnhub.io/api/v1/search?q=' + trim(message.text) + '&apikey=' + FinnhubAPIKey, function (error, response, body) {
       symbolObj = JSON.parse(body);
+      console.log(body);
       stockPriceCheck(message, symbolObj);
       });
   } catch (e) {
@@ -104,7 +105,8 @@ function assembleStockPost(message, symbolObj, quoteObj) {
       console.log(symbolTwo);
       console.log(nameTwo);
   } catch (e) {
-      postGoAhead = "no symbolObj";
+  	  name = "N/A"
+      //postGoAhead = "no symbolObj";
       //console.log(e);
   }
   
