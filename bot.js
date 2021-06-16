@@ -60,7 +60,7 @@ function stockNameCheck(message) {
       symbolSearch = trim(message.text);
       symbolSearch = symbolSearch.toUpperCase();
       console.log(symbolSearch);
-      request('https://finnhub.io/api/v1/search?q=' + trim(message.text) + '&apikey=' + FinnhubAPIKey, function (error, response, body) {
+      request('https://finnhub.io/api/v1/search?q=' + symbolSearch + '&token=' + FinnhubAPIKey, function (error, response, body) {
       symbolObj = JSON.parse(body);
       console.log(body);
       stockPriceCheck(message, symbolObj);
@@ -118,7 +118,8 @@ function assembleStockPost(message, symbolObj, quoteObj) {
 
       price = Number(quoteObj['c']);
       //price = parseFloat(price).toFixed(2);
-      priceString = price.toString();
+      priceString = parseFloat(price).toFixed(2);
+      priceString = priceString.toString();
       console.log('price:');
       console.log(price);
       
