@@ -57,7 +57,10 @@ function botTag(message) {
 
 function stockNameCheck(message) {
   try {
-      request('https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=' + trim(message.text) + '&apikey=' + alphaVantageAPIKey, function (error, response, body) {
+      symbolSearch = trim(message.text);
+      symbolSearch = symbolSearch.toUpperCase();
+      console.log(symbolSearch);
+      request('https://finnhub.io/api/v1/search?q=' + trim(message.text) + '&apikey=' + FinnhubAPIKey, function (error, response, body) {
       symbolObj = JSON.parse(body);
       stockPriceCheck(message, symbolObj);
       });
@@ -70,14 +73,14 @@ function stockNameCheck(message) {
 
 function stockPriceCheck(message, symbolObj) {
   try {
-  	  symbolSearch = trim(message.text);
-  	  symbolSearch = symbolSearch.toUpperCase();
-  	  console.log(symbolSearch);
+      symbolSearch = trim(message.text);
+      symbolSearch = symbolSearch.toUpperCase();
+      console.log(symbolSearch);
       request('https://finnhub.io/api/v1/quote?symbol=' + symbolSearch + '&token=' + FinnhubAPIKey, function (error, response, body) {
       quoteObj = JSON.parse(body);
       console.log(body);
       assembleStockPost(message, symbolObj, quoteObj);
-	  //console.log(response);
+      //console.log(response);
       });
   } catch (e) {
       console.log("entering catch block");
@@ -92,10 +95,10 @@ function assembleStockPost(message, symbolObj, quoteObj) {
     
       
   try {
-      symbol = (symbolObj['bestMatches'][0]['1. symbol']);
-      name = (symbolObj['bestMatches'][0]['2. name']);
-      symbolTwo = (symbolObj['bestMatches'][1]['1. symbol']);
-      nameTwo = (symbolObj['bestMatches'][1]['2. name']);
+      symbol = (symbolObj['result'][0]['displaySymbol']);
+      name = (symbolObj['result'][0]['description']);
+      symbolTwo = (symbolObj['result'][1]['displaySymbol']);
+      nameTwo = (symbolObj['result'][1]['description']);
       console.log(symbol);
       console.log(name);
       console.log(symbolTwo);
