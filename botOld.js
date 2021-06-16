@@ -69,7 +69,7 @@ function stockNameCheck(message) {
 
 function stockPriceCheck(message, symbolObj) {
   try {
-      request('https://finnhub.io/api/v1/quote?symbol=' + trim(message.text) + '&token=' + FinnhubAPIKey, function (error, response, body) {
+      request('https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=' + trim(message.text) + '&outputsize=compact&apikey=' + alphaVantageAPIKey, function (error, response, body) {
       quoteObj = JSON.parse(body);
       assembleStockPost(message, symbolObj, quoteObj);
 
@@ -102,23 +102,25 @@ function assembleStockPost(message, symbolObj, quoteObj) {
   
   
   try {
-      open = Number(quoteObj['o']);
+      open = Number(quoteObj['Global Quote']['02. open']);
       console.log('open:');
       console.log(open);
 
-      price = Number(quoteObj['c']);
-      //price = parseFloat(price).toFixed(2);
-      priceString = price.toString();
+      price = Number(quoteObj['Global Quote']['05. price']);
+      price = parseFloat(price).toFixed(2);
+      price = price.toString();
       console.log('price:');
       console.log(price);
       
-
-      previousClose = quoteObj['pc']
-      change = (Number(price) / Number(previousClose))-1
       
-      //change = quoteObj['Global Quote']['10. change percent'].slice(0,-3);
+      lastRefreshed = quoteObj['Global Quote']['07. latest trading day'];
+      console.log('lastRefreshed:');
+      console.log(lastRefreshed);
+      
+      
+      change = quoteObj['Global Quote']['10. change percent'].slice(0,-3);
       percent = '\uFF05';
-      //change = Number(change);
+      change = Number(change);
       console.log('change:');
       console.log(change);
       
@@ -138,7 +140,7 @@ function assembleStockPost(message, symbolObj, quoteObj) {
   
   if (postGoAhead == "yes") {
     console.log("SUCCESS: " + postGoAhead);
-    botResponse = ('💵 $' + priceString + '\n' + change + '\n' + chart + ' https://finance.yahoo.com/quote/' + trim(message.text) + '\n' + name);
+    botResponse = ('💵 $' + price + '\n' + change + '\n' + chart + ' https://finance.yahoo.com/quote/' + trim(message.text) + '\n' + name);
     postMessage(botResponse, message.group_id);
   } else {
     console.log("ERROR: " + postGoAhead);
