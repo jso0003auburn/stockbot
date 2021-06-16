@@ -73,7 +73,7 @@ function stockPriceCheck(message, symbolObj) {
       request('https://finnhub.io/api/v1/quote?symbol=' + trim(message.text) + '&token=' + FinnhubAPIKey, function (error, response, body) {
       quoteObj = JSON.parse(body);
       assembleStockPost(message, symbolObj, quoteObj);
-
+	  console.log(response)
       });
   } catch (e) {
       console.log("entering catch block");
