@@ -6,6 +6,7 @@ var mebots = require('mebots');
 // https://dashboard.heroku.com/apps/groupme-gif-bot/settings
 //var alphaVantageAPIKey = process.env.alphaVantageAPIKey;
 var alphaVantageAPIKey = process.env.alphaVantageAPIKey;
+var FinnhubAPIKey = process.env.FinnhubAPIKey;
 var bot = new mebots.Bot('stockbot', process.env.botToken);
 
 
