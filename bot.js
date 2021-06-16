@@ -71,7 +71,8 @@ function stockNameCheck(message) {
 function stockPriceCheck(message, symbolObj) {
   try {
   	  symbolSearch = trim(message.text);
-  	  symbolSearch = symbolSearch.toUpperCase;
+  	  symbolSearch = symbolSearch.toUpperCase();
+  	  console.log(symbolSearch);
       request('https://finnhub.io/api/v1/quote?symbol=' + symbolSearch + '&token=' + FinnhubAPIKey, function (error, response, body) {
       quoteObj = JSON.parse(body);
       console.log(body);
