@@ -72,8 +72,9 @@ function stockPriceCheck(message, symbolObj) {
   try {
       request('https://finnhub.io/api/v1/quote?symbol=' + trim(message.text) + '&token=' + FinnhubAPIKey, function (error, response, body) {
       quoteObj = JSON.parse(body);
+      console.log(body);
       assembleStockPost(message, symbolObj, quoteObj);
-	  console.log(response)
+	  //console.log(response);
       });
   } catch (e) {
       console.log("entering catch block");
@@ -114,9 +115,9 @@ function assembleStockPost(message, symbolObj, quoteObj) {
       console.log(price);
       
 
-      previousClose = quoteObj['pc']
-      change = (((Number(price) / Number(previousClose))-1)*100)
-      //change = change.toFixed(2)
+      previousClose = quoteObj['pc'];
+      change = (((Number(price) / Number(previousClose))-1)*100);
+      //change = change.toFixed(2);
       
       //change = quoteObj['Global Quote']['10. change percent'].slice(0,-3);
       percent = '\uFF05';
