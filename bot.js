@@ -134,8 +134,9 @@ function assembleStockPost(message, symbolObj, quoteObj) {
       console.log('change:');
       console.log(change);
       
-      if (Number(quoteObj['d']) == null) {
+      if (open == 0) {
         postGoAhead = "No price returned for that ticker";
+        console.log("check if there's a price" + postGoAhead);
       }
       
       
