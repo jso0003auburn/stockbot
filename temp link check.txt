@@ -1,1 +1,0 @@
-     https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=SPY&outputsize=compact&apikey=528P3B6Q2EW4I7B3
