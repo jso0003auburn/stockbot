@@ -96,14 +96,20 @@ function assembleStockPost(message, symbolObj, quoteObj) {
     
       
   try {
-      symbol = (symbolObj['result'][0]['displaySymbol']);
-      name = (symbolObj['result'][0]['description']);
-      symbolTwo = (symbolObj['result'][1]['displaySymbol']);
-      nameTwo = (symbolObj['result'][1]['description']);
-      console.log(symbol);
-      console.log(name);
-      console.log(symbolTwo);
-      console.log(nameTwo);
+    name = "N/A"
+    json = symbolObj['result']
+    json.forEach((item) => {
+      console.log('SYMBOL: ' + item.symbol);
+      console.log('DESCRIPTION: ' + item.description);
+    });
+//       symbol = (symbolObj['result'][0]['displaySymbol']);
+//       name = (symbolObj['result'][0]['description']);
+//       symbolTwo = (symbolObj['result'][1]['displaySymbol']);
+//       nameTwo = (symbolObj['result'][1]['description']);
+//       console.log(symbol);
+//       console.log(name);
+//       console.log(symbolTwo);
+//       console.log(nameTwo);
   } catch (e) {
       name = "N/A"
       //postGoAhead = "no symbolObj";
