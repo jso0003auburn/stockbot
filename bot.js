@@ -62,7 +62,7 @@ function stockNameCheck(message) {
       console.log(symbolSearch);
       request('https://finnhub.io/api/v1/search?q=' + symbolSearch + '&token=' + FinnhubAPIKey, function (error, response, body) {
       symbolObj = JSON.parse(body);
-      console.log(body);
+      //console.log(body);
       stockPriceCheck(message, symbolObj);
       });
   } catch (e) {
@@ -105,17 +105,11 @@ function assembleStockPost(message, symbolObj, quoteObj) {
       if (item.symbol == symbolSearch){
       name = item.description;
       }
-      console.log('SYMBOL: ' + item.symbol);
-      console.log('DESCRIPTION: ' + item.description);
+      //console.log('SYMBOL: ' + item.symbol);
+      //console.log('DISPLAYSYMBOL: ' + item.displaySymbol);
+      //console.log('DESCRIPTION: ' + item.description);
+      //console.log('TYPE: ' + item.type);
     });
-//       symbol = (symbolObj['result'][0]['displaySymbol']);
-//       name = (symbolObj['result'][0]['description']);
-//       symbolTwo = (symbolObj['result'][1]['displaySymbol']);
-//       nameTwo = (symbolObj['result'][1]['description']);
-//       console.log(symbol);
-//       console.log(name);
-//       console.log(symbolTwo);
-//       console.log(nameTwo);
   } catch (e) {
       name = "N/A"
       //postGoAhead = "no symbolObj";
