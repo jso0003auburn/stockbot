@@ -96,9 +96,15 @@ function assembleStockPost(message, symbolObj, quoteObj) {
     
       
   try {
+    symbolSearch = trim(message.text);
+    symbolSearch = symbolSearch.toUpperCase();
+    //console.log(symbolSearch);
     name = "N/A"
     json = symbolObj['result']
     json.forEach((item) => {
+      if (item.symbol == symbolSearch){
+      name = item.description;
+      }
       console.log('SYMBOL: ' + item.symbol);
       console.log('DESCRIPTION: ' + item.description);
     });
