@@ -105,7 +105,7 @@ function assembleStockPost(message, symbolObj, quoteObj) {
       console.log(symbolTwo);
       console.log(nameTwo);
   } catch (e) {
-  	  name = "N/A"
+      name = "N/A"
       //postGoAhead = "no symbolObj";
       //console.log(e);
   }
@@ -133,6 +133,10 @@ function assembleStockPost(message, symbolObj, quoteObj) {
       //change = Number(change);
       console.log('change:');
       console.log(change);
+      
+      if (change == null) {
+        postGoAhead = "No price returned for that ticker"
+      }
       
       
       if (price < Number(previousClose)) {
