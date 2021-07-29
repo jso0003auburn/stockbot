@@ -29,8 +29,11 @@ function respond() {
 }
 
 
-function trim(text) {
-    return text.substring(1).trim();
+function trimToTicker(text) {
+    formattedTicker = text.substring(1);
+    formattedTicker = formattedTicker.toUpperCase();
+    return formattedTicker
+    //return text.substring(1).trim();
 }
 
 
@@ -57,8 +60,9 @@ function botTag(message) {
 
 function stockNameCheck(message) {
   try {
-      symbolSearch = trim(message.text);
-      symbolSearch = symbolSearch.toUpperCase();
+      //symbolSearch = trim(message.text);
+      //symbolSearch = symbolSearch.toUpperCase();
+      symbolSearch = trimToTicker(message.text);
       console.log(symbolSearch);
       request('https://finnhub.io/api/v1/search?q=' + symbolSearch + '&token=' + FinnhubAPIKey, function (error, response, body) {
       symbolObj = JSON.parse(body);
@@ -74,8 +78,9 @@ function stockNameCheck(message) {
 
 function stockPriceCheck(message, symbolObj) {
   try {
-      symbolSearch = trim(message.text);
-      symbolSearch = symbolSearch.toUpperCase();
+      //symbolSearch = trim(message.text);
+      //symbolSearch = symbolSearch.toUpperCase();
+      symbolSearch = trimToTicker(message.text);
       console.log(symbolSearch);
       request('https://finnhub.io/api/v1/quote?symbol=' + symbolSearch + '&token=' + FinnhubAPIKey, function (error, response, body) {
       quoteObj = JSON.parse(body);
@@ -96,19 +101,21 @@ function assembleStockPost(message, symbolObj, quoteObj) {
     
       
   try {
-    symbolSearch = trim(message.text);
-    symbolSearch = symbolSearch.toUpperCase();
+    //symbolSearch = trim(message.text);
+    //symbolSearch = symbolSearch.toUpperCase();
+    symbolSearch = trimToTicker(message.text);
     //console.log(symbolSearch);
     name = "N/A"
     json = symbolObj['result']
     json.forEach((item) => {
       if (item.symbol == symbolSearch){
       name = item.description;
+      console.log('SYMBOL: ' + item.symbol);
+      console.log('DISPLAYSYMBOL: ' + item.displaySymbol);
+      console.log('DESCRIPTION: ' + item.description);
+      console.log('TYPE: ' + item.type);
       }
-      //console.log('SYMBOL: ' + item.symbol);
-      //console.log('DISPLAYSYMBOL: ' + item.displaySymbol);
-      //console.log('DESCRIPTION: ' + item.description);
-      //console.log('TYPE: ' + item.type);
+
     });
   } catch (e) {
       name = "N/A"
@@ -134,9 +141,7 @@ function assembleStockPost(message, symbolObj, quoteObj) {
       change = (((Number(price) / Number(previousClose))-1)*100);
       change = change.toFixed(2);
       
-      //change = quoteObj['Global Quote']['10. change percent'].slice(0,-3);
       percent = '\uFF05';
-      //change = Number(change);
       console.log('change:');
       console.log(change);
       
