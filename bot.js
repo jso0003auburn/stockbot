@@ -166,7 +166,7 @@ function assembleStockPost(message, symbolObj, quoteObj) {
   
   if (postGoAhead == "yes") {
     console.log("SUCCESS: " + postGoAhead);
-    botResponse = ('💵 $' + priceString + '\n' + change + '\n' + chart + ' https://finance.yahoo.com/quote/' + trim(message.text) + '\n' + name);
+    botResponse = ('💵 $' + priceString + '\n' + change + '\n' + chart + ' https://finance.yahoo.com/quote/' + trimToTicker(message.text) + '\n' + name);
     postMessage(botResponse, message.group_id);
   } else {
     console.log("ERROR: " + postGoAhead);
