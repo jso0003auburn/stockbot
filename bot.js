@@ -4,12 +4,9 @@ var mebots = require('mebots');
 
 // https://dev.groupme.com/bots
 // https://dashboard.heroku.com/apps/groupme-gif-bot/settings
-//var alphaVantageAPIKey = process.env.alphaVantageAPIKey;
 var alphaVantageAPIKey = process.env.alphaVantageAPIKey;
 var FinnhubAPIKey = process.env.FinnhubAPIKey;
 var bot = new mebots.Bot('stockbot', process.env.botToken);
-
-
 
 // Process incoming groupme messages
 function respond() {
@@ -28,14 +25,11 @@ function respond() {
     this.res.end("OK");
 }
 
-
 function trimToTicker(text) {
     formattedTicker = text.substring(1);
     formattedTicker = formattedTicker.toUpperCase();
     return formattedTicker
-    //return text.substring(1).trim();
 }
-
 
 function tagCheck(message) {
     // Was the bot tagged?
@@ -49,19 +43,14 @@ function tagCheck(message) {
     }
 }
 
-
 // If the bot was tagged
 function botTag(message) {
     botResponse = 'try one of these:\n$MSFT - Microsoft\n$^GSPC - S&P500\n$^DJI - Dow Jones\n$aapl - 🍏\nhttps://mebotsco.herokuapp.com/bot/stockbot';
     postMessage(botResponse, message.group_id);
 }
 
-
-
 function stockNameCheck(message) {
   try {
-      //symbolSearch = trim(message.text);
-      //symbolSearch = symbolSearch.toUpperCase();
       symbolSearch = trimToTicker(message.text);
       console.log(symbolSearch);
       request('https://finnhub.io/api/v1/search?q=' + symbolSearch + '&token=' + FinnhubAPIKey, function (error, response, body) {
@@ -78,8 +67,6 @@ function stockNameCheck(message) {
 
 function stockPriceCheck(message, symbolObj) {
   try {
-      //symbolSearch = trim(message.text);
-      //symbolSearch = symbolSearch.toUpperCase();
       symbolSearch = trimToTicker(message.text);
       console.log(symbolSearch);
       request('https://finnhub.io/api/v1/quote?symbol=' + symbolSearch + '&token=' + FinnhubAPIKey, function (error, response, body) {
@@ -95,16 +82,11 @@ function stockPriceCheck(message, symbolObj) {
   }
 }
 
-
 function assembleStockPost(message, symbolObj, quoteObj) {
   postGoAhead = "yes";
     
-      
   try {
-    //symbolSearch = trim(message.text);
-    //symbolSearch = symbolSearch.toUpperCase();
     symbolSearch = trimToTicker(message.text);
-    //console.log(symbolSearch);
     name = "N/A"
     json = symbolObj['result']
     json.forEach((item) => {
@@ -126,31 +108,27 @@ function assembleStockPost(message, symbolObj, quoteObj) {
   
   try {
       open = Number(quoteObj['o']);
-      console.log('open:');
-      console.log(open);
+      //console.log('open:');
+      //console.log(open);
 
       price = Number(quoteObj['c']);
-      //price = parseFloat(price).toFixed(2);
       priceString = parseFloat(price).toFixed(2);
       priceString = priceString.toString();
-      console.log('price:');
-      console.log(price);
+      //console.log('price:');
+      //console.log(price);
       
-
       previousClose = quoteObj['pc'];
       change = (((Number(price) / Number(previousClose))-1)*100);
       change = change.toFixed(2);
-      
-      percent = '\uFF05';
-      console.log('change:');
-      console.log(change);
+      //console.log('change:');
+      //console.log(change);
       
       if (open == 0) {
         postGoAhead = "No price returned for that ticker";
         console.log("check if there's a price" + postGoAhead);
       }
       
-      
+      percent = '\uFF05';      
       if (price < Number(previousClose)) {
         change = '🔽 ' + change + percent;
         chart = '📉';
@@ -174,8 +152,6 @@ function assembleStockPost(message, symbolObj, quoteObj) {
 
 
 }
-
-
 
 // Post message
 function postMessage(text, groupID) {
